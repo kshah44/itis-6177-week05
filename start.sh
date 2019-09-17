@@ -26,13 +26,18 @@ systemctl status mariadb
 
 # mysql_secure_installation
 
-# mysql -u root -p
-
-# cd var/test_db
-# mysql -t < employees.sql -u root -p
+### mysql -u root -p
 ### source /var/test_db/employees.sql
 
-# firewall-cmd --add-port=3306/tcp 
+# cd /var/test_db
+# mysql -t < employees.sql -u root -p
+
+
+## mysql -u root -p
+## use employees;
+## select * from employees limit 5;
+
+# firewall-cmd --add-port=3306/tcp
 # firewall-cmd --permanent --add-port=3306/tcp
 
 firewall-cmd --add-port=80/tcp && firewall-cmd --permanent --add-port=80/tcp
