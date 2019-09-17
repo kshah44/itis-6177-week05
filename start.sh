@@ -35,5 +35,4 @@ systemctl status mariadb
 # firewall-cmd --add-port=3306/tcp 
 # firewall-cmd --permanent --add-port=3306/tcp
 
-firewall-cmd --add-port=80/tcp 
-firewall-cmd --permanent --add-port=80/tcp
+firewall-cmd --add-port=80/tcp && firewall-cmd --permanent --add-port=80/tcp
