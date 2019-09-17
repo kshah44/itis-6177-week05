@@ -28,7 +28,9 @@ systemctl status mariadb
 
 # mysql -u root -p
 
-# source /var/test_db/employees.sql
+# cd var/test_db
+# mysql -t < employees.sql -u root -p
+### source /var/test_db/employees.sql
 
 # firewall-cmd --add-port=3306/tcp 
 # firewall-cmd --permanent --add-port=3306/tcp
