@@ -1,5 +1,6 @@
 const express = require('express');
 const mariadb = require('mariadb');
+const path = require('path');
 
 const app = express();
 const port = 80;
@@ -12,7 +13,9 @@ const pool = mariadb.createPool({
     connectionLimit: 50
 });
 
-app.get('/', function (req, res) {
+app.use(express.static('public'));
+
+app.get('/employees', function (req, res) {
     pool.getConnection()
         .then(conn => {
             conn.query('SELECT * FROM employees LIMIT 10')
@@ -26,6 +29,10 @@ app.get('/', function (req, res) {
         .catch(err => {
             console.log("not connected due to error: " + err);
         });
+});
+
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, 'public', 'index.html');
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
