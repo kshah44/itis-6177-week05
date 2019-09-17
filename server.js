@@ -9,25 +9,23 @@ const pool = mariadb.createPool({
     user: 'root',
     password: '123456',
     database: 'employees',
-    connectionLimit: 5
+    connectionLimit: 50
 });
 
 app.get('/', function (req, res) {
-
-    let conn;
-    try {
-        conn = await pool.getConnection();
-        const rows = await conn.query("SELECT * FROM employees LIMIT 10");
-        console.log(rows); //[ {val: 1}, meta: ... ]
-        res.json({
-            response: sqlRes
+    pool.getConnection()
+        .then(conn => {
+            conn.query('SELECT * FROM employees LIMIT 10')
+                .then(sqlRes => {
+                    res.json({
+                        response: sqlRes
+                    });
+            });
+            conn.release();
+        })
+        .catch(err => {
+            console.log("not connected due to error: " + err);
         });
-
-    } catch (err) {
-        throw err;
-    } finally {
-        if (conn) return conn.end();
-    }
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
