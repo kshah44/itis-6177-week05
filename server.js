@@ -17,7 +17,7 @@ app.get('/', function (req, res) {
     let conn;
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query("SELECT * FROM employess LIMIT 10");
+        const rows = await conn.query("SELECT * FROM employees LIMIT 10");
         console.log(rows); //[ {val: 1}, meta: ... ]
         res.json({
             response: sqlRes
